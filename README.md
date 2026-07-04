@@ -1,37 +1,182 @@
-`uv init`
+# uv-project
 
-uv will take care of virtual environments when you add 1 package
+This project is a simple Python chat app that uses the Groq API to talk to an LLM from the terminal.
 
-how to add packages?
-`uv add langchain`
+It is already set up to work with `uv`, which manages Python dependencies and the virtual environment for you.
 
-`uv add ipykernel` - to make jupyter notebook works in vscode
+## 1. Prerequisites
 
-how to activate virtual environment?
-`source .venv/bin/activate`
+Make sure you have the following installed on your machine:
 
-how to work with .env files?
-install python-dotenv library using `uv add python-dotenv`
+- Python 3.14 or newer
+- VS Code
+- Git
+- `uv`
 
-how to run python file?
-`uv run main.py`
+### Install `uv`
 
-Lets use LLM?
-visit console.groq.com and create new API key
-choose a model and i choose llama-3.3-70b-versatile
+On macOS and Linux:
 
-add these GROQ_API_KEY and MODEL in .env file
-
-Example `.env`:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
-GROQ_API_KEY=gsk_your_key_here
+
+On Windows PowerShell:
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Verify the installation:
+
+```bash
+uv --version
+```
+
+## 2. Open the project in VS Code
+
+1. Open the project folder in VS Code.
+2. Open the integrated terminal.
+3. Make sure you are inside the project root.
+
+## 3. Install the required VS Code extensions
+
+Recommended extensions:
+
+- Python
+- Jupyter
+- Pylance
+
+These extensions help with Python syntax, IntelliSense, notebook support, and interpreter selection.
+
+## 4. Install Python dependencies
+
+From the project root, run:
+
+```bash
+uv sync
+```
+
+This will create the virtual environment and install the packages listed in `pyproject.toml`.
+
+## 5. Activate the virtual environment (optional, but helpful)
+
+On macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+On Windows:
+
+```powershell
+.venv\Scripts\activate
+```
+
+If you do not want to activate it manually, you can still run commands through `uv` directly.
+
+## 6. Set up your environment variables
+
+This project uses a `.env` file for configuration.
+
+Create a file named `.env` in the project root and add the following:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
 MODEL=llama-3.3-70b-versatile
 ```
 
-as we already have python-dotenv library but we would still need groq library to use LLM and hence run this command `uv add groq`
+### Where to get the API key
 
-update main.py with relevant code and run using 
+1. Go to https://console.groq.com/
+2. Create or sign in to your account.
+3. Create an API key.
+4. Paste it into the `.env` file.
 
-`uv run main.py`
+> Important: Do not commit your `.env` file or share your API key publicly.
+
+## 7. Run the application
+
+From the project root, run:
+
+```bash
+uv run main.py
+```
+
+You will see a chat prompt like:
+
+```text
+You:
+```
+
+Type your message and press Enter. To exit the chat, type:
+
+```text
+exit
+```
+
+## 8. Optional: use Jupyter Notebook
+
+If you want to use the notebook file in VS Code to play with python(not relevant to this project):
+
+```bash
+uv add ipykernel
+```
+
+Then in VS Code:
+
+1. Open the notebook file.
+2. Select the Python interpreter from the `.venv` environment.
+3. Run the cells.
+
+## 9. Useful `uv` commands
+
+- Add a package:
+
+```bash
+uv add package-name
+```
+
+- Run a Python file:
+
+```bash
+uv run main.py
+```
+
+- Open a shell in the project environment:
+
+```bash
+uv shell
+```
+
+## Troubleshooting
+
+### `uv` is not recognized
+
+Restart the terminal after installation or check that the install path is available in your shell.
+
+### `ModuleNotFoundError`
+
+Run:
+
+```bash
+uv sync
+```
+
+### Authentication failed
+
+Check that:
+
+- Your Groq API key is correct.
+- The `.env` file is in the project root.
+- The `MODEL` value is valid for your account.
+
+### VS Code does not see the correct interpreter
+
+Open the Command Palette and choose:
+
+- Python: Select Interpreter
+
+Then select the interpreter from the `.venv` folder inside this project.
 
 
